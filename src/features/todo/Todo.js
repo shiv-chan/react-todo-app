@@ -10,11 +10,18 @@ export default function Todo() {
 	const [allTodos, setAllTodos] = useState([]);
 	const [todoTitle, setTodoTitle] = useState('');
 	const [checked, setChecked] = useState([]);
+	const [showActive, setShowActive] = useState(false);
+	const [showCompleted, setShowCompleted] = useState(false);
 
 	// re-render when the global state changes
 	useEffect(() => {
 		setAllTodos(todos);
 		setChecked(todos);
+		if (showActive) {
+			showActiveTodos();
+		} else if (showCompleted) {
+			showCompletedTodos();
+		}
 	}, [todos]);
 
 	// add a new todo when hitting the enter key
@@ -38,6 +45,26 @@ export default function Todo() {
 				: item
 		);
 		setChecked(updatedCheckedState);
+	};
+
+	const showAllTodos = () => {
+		setAllTodos(todos);
+		setShowActive(false);
+		setShowCompleted(false);
+	};
+
+	const showActiveTodos = () => {
+		const activeTodos = todos.filter((todo) => todo.isDone === false);
+		setAllTodos(activeTodos);
+		setShowActive(true);
+		setShowCompleted(false);
+	};
+
+	const showCompletedTodos = () => {
+		const completedTodos = todos.filter((todo) => todo.isDone === true);
+		setAllTodos(completedTodos);
+		setShowActive(false);
+		setShowCompleted(true);
 	};
 
 	return (
@@ -91,9 +118,9 @@ export default function Todo() {
 				</div>
 			</section>
 			<section className="todo-items-sort">
-				<button>All</button>
-				<button>Active</button>
-				<button>Completed</button>
+				<button onClick={showAllTodos}>All</button>
+				<button onClick={showActiveTodos}>Active</button>
+				<button onClick={showCompletedTodos}>Completed</button>
 			</section>
 			<p>Drag and drop to reorder list</p>
 		</main>
