@@ -83,7 +83,22 @@ export default function Todo() {
 			</section>
 			<section className="todo-items-list">
 				{allTodos.map((todo) => (
-					<div key={todo.id} data-todo-id={todo.id}>
+					<div
+						key={todo.id}
+						data-todo-id={todo.id}
+						onMouseOver={(e) =>
+							e.currentTarget.children[2].classList.add('show')
+						}
+						onMouseLeave={(e) =>
+							e.currentTarget.children[2].classList.remove('show')
+						}
+						onTouchStart={(e) =>
+							e.currentTarget.children[2].classList.toggle('show')
+						}
+						onTouchCancel={(e) =>
+							e.currentTarget.children[2].classList.remove('show')
+						}
+					>
 						<input
 							type="checkbox"
 							name="todo-check"
