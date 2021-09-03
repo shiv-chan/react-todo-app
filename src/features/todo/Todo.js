@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { add, toggleCheckbox, remove, clearCompleted } from './todoSlice';
 import { BsCircle } from 'react-icons/all';
 import iconCross from '../../images/icon-cross.svg';
+import { useMediaQuery } from 'react-responsive';
 
 export default function Todo() {
 	const todos = useSelector((state) => state.todos);
@@ -12,6 +13,10 @@ export default function Todo() {
 	const [checked, setChecked] = useState([]);
 	const [showActive, setShowActive] = useState(false);
 	const [showCompleted, setShowCompleted] = useState(false);
+
+	const isDesktop = useMediaQuery({
+		query: '(min-width: 1440px)',
+	});
 
 	// re-render when the global state changes
 	useEffect(() => {
@@ -47,6 +52,7 @@ export default function Todo() {
 		setChecked(updatedCheckedState);
 	};
 
+	// sort todos
 	const showAllTodos = () => {
 		setAllTodos(todos);
 		setShowActive(false);
@@ -67,6 +73,12 @@ export default function Todo() {
 		setShowCompleted(true);
 	};
 
+	// count active todos
+	const countActiveTodos = () => {
+		const activeTodos = todos.filter((todo) => todo.isDone === false);
+		return activeTodos.length;
+	};
+
 	return (
 		<main>
 			<section className="todo-input">
@@ -83,12 +95,27 @@ export default function Todo() {
 			</section>
 			<section className="todo-items-list">
 				{allTodos.map((todo) => (
-					<div key={todo.id} data-todo-id={todo.id}>
+					<div
+						key={todo.id}
+						data-todo-id={todo.id}
+						onMouseOver={(e) =>
+							e.currentTarget.children[3].classList.add('show')
+						}
+						onMouseLeave={(e) =>
+							e.currentTarget.children[3].classList.remove('show')
+						}
+						onTouchStart={(e) =>
+							e.currentTarget.children[3].classList.toggle('show')
+						}
+						onTouchCancel={(e) =>
+							e.currentTarget.children[3].classList.remove('show')
+						}
+					>
 						<input
 							type="checkbox"
 							name="todo-check"
 							id={todo.id}
-							checked={todo.isDone ? true : false}
+							checked={todo.isDone}
 							onChange={checkboxHandler}
 							onClick={(e) => {
 								dispatch(
@@ -96,7 +123,15 @@ export default function Todo() {
 								);
 							}}
 						/>
-						<label htmlFor={todo.id}>{todo.title}</label>
+						<span
+							className={`checkmark ${todo.isDone ? 'checked' : ''}`}
+						></span>
+						<label
+							htmlFor={todo.id}
+							className={`${todo.isDone ? 'strike-through' : ''}`}
+						>
+							{todo.title}
+						</label>
 						<img
 							src={iconCross}
 							alt="cross-icon"
@@ -108,19 +143,65 @@ export default function Todo() {
 						/>
 					</div>
 				))}
-				<div className="todos-footer">
-					<p className="number-of-todos">
-						<span>{allTodos.length}</span> items left
-					</p>
-					<button onClick={() => dispatch(clearCompleted())}>
-						Clear Completed
-					</button>
-				</div>
+				{isDesktop ? (
+					<div className="todos-footer">
+						<p className="number-of-todos">
+							<span>{countActiveTodos()}</span> items left
+						</p>
+						<section className="todo-items-sort">
+							<button
+								onClick={showAllTodos}
+								className={`${!showActive && !showCompleted ? 'active' : ''}`}
+							>
+								All
+							</button>
+							<button
+								onClick={showActiveTodos}
+								className={`${showActive ? 'active' : ''}`}
+							>
+								Active
+							</button>
+							<button
+								onClick={showCompletedTodos}
+								className={`${showCompleted ? 'active' : ''}`}
+							>
+								Completed
+							</button>
+						</section>
+						<button onClick={() => dispatch(clearCompleted())}>
+							Clear Completed
+						</button>
+					</div>
+				) : (
+					<div className="todos-footer">
+						<p className="number-of-todos">
+							<span>{countActiveTodos()}</span> items left
+						</p>
+						<button onClick={() => dispatch(clearCompleted())}>
+							Clear Completed
+						</button>
+					</div>
+				)}
 			</section>
 			<section className="todo-items-sort">
-				<button onClick={showAllTodos}>All</button>
-				<button onClick={showActiveTodos}>Active</button>
-				<button onClick={showCompletedTodos}>Completed</button>
+				<button
+					onClick={showAllTodos}
+					className={`${!showActive && !showCompleted ? 'active' : ''}`}
+				>
+					All
+				</button>
+				<button
+					onClick={showActiveTodos}
+					className={`${showActive ? 'active' : ''}`}
+				>
+					Active
+				</button>
+				<button
+					onClick={showCompletedTodos}
+					className={`${showCompleted ? 'active' : ''}`}
+				>
+					Completed
+				</button>
 			</section>
 			<p>Drag and drop to reorder list</p>
 		</main>

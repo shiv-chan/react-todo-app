@@ -1,0 +1,50 @@
+@include darkMode {
+	main {
+		.todo-input {
+			input {
+				background-color: $very-dark-desaturated-blue;
+				color: $light-grayish-blue-hover;
+			}
+
+			svg {
+				color: $very-dark-grayish-blue;
+			}
+		}
+
+		.todo-items-list {
+			div {
+				background-color: $very-dark-desaturated-blue;
+				border-bottom: 1px solid $very-dark-grayish-blue;
+
+				.checkmark {
+					background-image: linear-gradient(
+							to right,
+							$very-dark-desaturated-blue,
+							$very-dark-desaturated-blue
+						),
+						linear-gradient(
+							to right,
+							$very-dark-grayish-blue,
+							$very-dark-grayish-blue
+						);
+
+					&.checked {
+						background-image: url('../images/icon-check.svg'), $check-bg;
+					}
+				}
+
+				label {
+					color: $light-grayish-blue-hover;
+
+					&.strike-through {
+						color: $dark-grayish-blue;
+					}
+				}
+			}
+		}
+
+		.todo-items-sort {
+			background-color: $very-dark-desaturated-blue;
+		}
+	}
+}
