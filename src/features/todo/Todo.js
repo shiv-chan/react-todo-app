@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { add, toggleCheckbox, remove, clearCompleted } from './todoSlice';
 import { BsCircle } from 'react-icons/all';
 import iconCross from '../../images/icon-cross.svg';
+import { useMediaQuery } from 'react-responsive';
 
 export default function Todo() {
 	const todos = useSelector((state) => state.todos);
@@ -12,6 +13,10 @@ export default function Todo() {
 	const [checked, setChecked] = useState([]);
 	const [showActive, setShowActive] = useState(false);
 	const [showCompleted, setShowCompleted] = useState(false);
+
+	const isDesktop = useMediaQuery({
+		query: '(min-width: 1440px)',
+	});
 
 	// re-render when the global state changes
 	useEffect(() => {
@@ -138,14 +143,45 @@ export default function Todo() {
 						/>
 					</div>
 				))}
-				<div className="todos-footer">
-					<p className="number-of-todos">
-						<span>{countActiveTodos()}</span> items left
-					</p>
-					<button onClick={() => dispatch(clearCompleted())}>
-						Clear Completed
-					</button>
-				</div>
+				{isDesktop ? (
+					<div className="todos-footer">
+						<p className="number-of-todos">
+							<span>{countActiveTodos()}</span> items left
+						</p>
+						<section className="todo-items-sort">
+							<button
+								onClick={showAllTodos}
+								className={`${!showActive && !showCompleted ? 'active' : ''}`}
+							>
+								All
+							</button>
+							<button
+								onClick={showActiveTodos}
+								className={`${showActive ? 'active' : ''}`}
+							>
+								Active
+							</button>
+							<button
+								onClick={showCompletedTodos}
+								className={`${showCompleted ? 'active' : ''}`}
+							>
+								Completed
+							</button>
+						</section>
+						<button onClick={() => dispatch(clearCompleted())}>
+							Clear Completed
+						</button>
+					</div>
+				) : (
+					<div className="todos-footer">
+						<p className="number-of-todos">
+							<span>{countActiveTodos()}</span> items left
+						</p>
+						<button onClick={() => dispatch(clearCompleted())}>
+							Clear Completed
+						</button>
+					</div>
+				)}
 			</section>
 			<section className="todo-items-sort">
 				<button

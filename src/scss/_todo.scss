@@ -156,3 +156,44 @@ main {
 		margin-top: 3rem;
 	}
 }
+
+@include desktop {
+	main {
+		.todo-input {
+			input {
+				height: 65px;
+			}
+
+			svg {
+				top: 1.1rem;
+			}
+		}
+
+		.todo-items-list {
+			div {
+				height: 65px;
+
+				.checkmark {
+					top: 1.1rem;
+				}
+
+				label {
+					font-size: 1rem;
+				}
+			}
+
+			.todos-footer {
+				height: 50px;
+
+				.todo-items-sort {
+					display: flex;
+					width: auto;
+				}
+			}
+		}
+
+		.todo-items-sort {
+			display: none;
+		}
+	}
+}

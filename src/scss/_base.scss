@@ -30,6 +30,11 @@ $dark-grayish-blue: hsl(234, 11%, 52%);
 $very-dark-grayish-blue: hsl(233, 14%, 35%);
 $very-dark-grayish-blue: hsl(237, 14%, 26%);
 
+html,
+body {
+	background-color: $very-light-gray;
+}
+
 .container {
 	width: 100vw;
 	height: 100vh;
@@ -45,6 +50,18 @@ $very-dark-grayish-blue: hsl(237, 14%, 26%);
 .container.dark {
 	background: $very-dark-blue url('../images/bg-mobile-dark.jpg') no-repeat
 		fixed top/100% 200px;
+}
+
+@include desktop {
+	.container {
+		background: $very-light-gray url('../images/bg-desktop-light.jpg') no-repeat
+			fixed top/100% 300px;
+	}
+
+	.container.dark {
+		background: $very-dark-blue url('../images/bg-desktop-dark.jpg') no-repeat
+			fixed top/100% 300px;
+	}
 }
 
 .todo-wrapper {

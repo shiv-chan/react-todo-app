@@ -15,3 +15,13 @@ header {
 		cursor: pointer;
 	}
 }
+
+@include desktop {
+	header {
+		height: 135px;
+
+		h1 {
+			font-size: 40px;
+		}
+	}
+}
