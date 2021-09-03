@@ -43,7 +43,7 @@ $very-dark-grayish-blue: hsl(237, 14%, 26%);
 }
 
 .container.dark {
-	background: $very-light-gray url('../images/bg-mobile-dark.jpg') no-repeat
+	background: $very-dark-blue url('../images/bg-mobile-dark.jpg') no-repeat
 		fixed top/100% 200px;
 }
 
@@ -53,4 +53,11 @@ $very-dark-grayish-blue: hsl(237, 14%, 26%);
 	max-width: 600px;
 	min-width: 300px;
 	padding: 1.5rem;
+}
+
+// dark mode
+@mixin darkMode {
+	.container.dark {
+		@content;
+	}
 }
