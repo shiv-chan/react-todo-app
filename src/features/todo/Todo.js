@@ -47,6 +47,7 @@ export default function Todo() {
 		setChecked(updatedCheckedState);
 	};
 
+	// sort todos
 	const showAllTodos = () => {
 		setAllTodos(todos);
 		setShowActive(false);
@@ -65,6 +66,12 @@ export default function Todo() {
 		setAllTodos(completedTodos);
 		setShowActive(false);
 		setShowCompleted(true);
+	};
+
+	// count active todos
+	const countActiveTodos = () => {
+		const activeTodos = todos.filter((todo) => todo.isDone === false);
+		return activeTodos.length;
 	};
 
 	return (
@@ -87,23 +94,23 @@ export default function Todo() {
 						key={todo.id}
 						data-todo-id={todo.id}
 						onMouseOver={(e) =>
-							e.currentTarget.children[2].classList.add('show')
+							e.currentTarget.children[3].classList.add('show')
 						}
 						onMouseLeave={(e) =>
-							e.currentTarget.children[2].classList.remove('show')
+							e.currentTarget.children[3].classList.remove('show')
 						}
 						onTouchStart={(e) =>
-							e.currentTarget.children[2].classList.toggle('show')
+							e.currentTarget.children[3].classList.toggle('show')
 						}
 						onTouchCancel={(e) =>
-							e.currentTarget.children[2].classList.remove('show')
+							e.currentTarget.children[3].classList.remove('show')
 						}
 					>
 						<input
 							type="checkbox"
 							name="todo-check"
 							id={todo.id}
-							checked={todo.isDone ? true : false}
+							checked={todo.isDone}
 							onChange={checkboxHandler}
 							onClick={(e) => {
 								dispatch(
@@ -111,6 +118,9 @@ export default function Todo() {
 								);
 							}}
 						/>
+						<span
+							className={`checkmark ${todo.isDone ? 'checked' : ''}`}
+						></span>
 						<label
 							htmlFor={todo.id}
 							className={`${todo.isDone ? 'strike-through' : ''}`}
@@ -130,7 +140,7 @@ export default function Todo() {
 				))}
 				<div className="todos-footer">
 					<p className="number-of-todos">
-						<span>{allTodos.length}</span> items left
+						<span>{countActiveTodos()}</span> items left
 					</p>
 					<button onClick={() => dispatch(clearCompleted())}>
 						Clear Completed
@@ -138,9 +148,24 @@ export default function Todo() {
 				</div>
 			</section>
 			<section className="todo-items-sort">
-				<button onClick={showAllTodos}>All</button>
-				<button onClick={showActiveTodos}>Active</button>
-				<button onClick={showCompletedTodos}>Completed</button>
+				<button
+					onClick={showAllTodos}
+					className={`${!showActive && !showCompleted ? 'active' : ''}`}
+				>
+					All
+				</button>
+				<button
+					onClick={showActiveTodos}
+					className={`${showActive ? 'active' : ''}`}
+				>
+					Active
+				</button>
+				<button
+					onClick={showCompletedTodos}
+					className={`${showCompleted ? 'active' : ''}`}
+				>
+					Completed
+				</button>
 			</section>
 			<p>Drag and drop to reorder list</p>
 		</main>
