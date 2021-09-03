@@ -111,7 +111,12 @@ export default function Todo() {
 								);
 							}}
 						/>
-						<label htmlFor={todo.id}>{todo.title}</label>
+						<label
+							htmlFor={todo.id}
+							className={`${todo.isDone ? 'strike-through' : ''}`}
+						>
+							{todo.title}
+						</label>
 						<img
 							src={iconCross}
 							alt="cross-icon"

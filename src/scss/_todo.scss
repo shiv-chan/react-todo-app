@@ -60,6 +60,10 @@ main {
 				font-size: 0.8em;
 				margin-left: 0.5rem;
 				cursor: pointer;
+
+				&.strike-through {
+					text-decoration: line-through;
+				}
 			}
 
 			img {
