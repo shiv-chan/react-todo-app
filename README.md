@@ -39,6 +39,10 @@ However, it has a issue which is it gets a screen flicker when re-ordering todo 
 ![スクリーンショット 2021-09-03 20 11 17](https://user-images.githubusercontent.com/51708229/132080591-177f7030-3a66-4b75-8dad-515d46983cd4.png) ![スクリーンショット 2021-09-03 20 10 20](https://user-images.githubusercontent.com/51708229/132080592-ee4d3751-50aa-450e-ae4a-1aadba61ec75.png)
 
 ### Demo
+![react-todo-app-demo-min](https://user-images.githubusercontent.com/51708229/132109586-59830aee-a089-4867-a578-c36448afe233.gif)
+
+### Production Site
+https://react-todo-app-snowy.vercel.app/
 
 
 ## Installation and Setup Instructions
