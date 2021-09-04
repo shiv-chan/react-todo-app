@@ -64,10 +64,14 @@ export const todoSlice = createSlice({
 		clearCompleted: (state) => {
 			return state.filter((todo) => todo.isDone === false);
 		},
+		changeOrder: (state, action) => {
+			const [reorderedItem] = state.splice(action.payload.prevIndex, 1);
+			state.splice(action.payload.newIndex, 0, reorderedItem);
+		},
 	},
 });
 
-export const { add, toggleCheckbox, remove, clearCompleted } =
+export const { add, toggleCheckbox, remove, clearCompleted, changeOrder } =
 	todoSlice.actions;
 
 export default todoSlice.reducer;
