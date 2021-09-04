@@ -1,9 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { add, toggleCheckbox, remove, clearCompleted } from './todoSlice';
+import {
+	add,
+	toggleCheckbox,
+	remove,
+	clearCompleted,
+	changeOrder,
+} from './todoSlice';
 import { BsCircle } from 'react-icons/all';
 import iconCross from '../../images/icon-cross.svg';
 import { useMediaQuery } from 'react-responsive';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 export default function Todo() {
 	const todos = useSelector((state) => state.todos);
@@ -79,6 +86,13 @@ export default function Todo() {
 		return activeTodos.length;
 	};
 
+	const onDragEndHandler = (result) => {
+		if (!result.destination) return;
+		const prevIndex = result.source.index;
+		const newIndex = result.destination.index;
+		dispatch(changeOrder({ prevIndex, newIndex }));
+	};
+
 	return (
 		<main>
 			<section className="todo-input">
@@ -94,55 +108,82 @@ export default function Todo() {
 				<BsCircle />
 			</section>
 			<section className="todo-items-list">
-				{allTodos.map((todo) => (
-					<div
-						key={todo.id}
-						data-todo-id={todo.id}
-						onMouseOver={(e) =>
-							e.currentTarget.children[3].classList.add('show')
-						}
-						onMouseLeave={(e) =>
-							e.currentTarget.children[3].classList.remove('show')
-						}
-						onTouchStart={(e) =>
-							e.currentTarget.children[3].classList.toggle('show')
-						}
-						onTouchCancel={(e) =>
-							e.currentTarget.children[3].classList.remove('show')
-						}
-					>
-						<input
-							type="checkbox"
-							name="todo-check"
-							id={todo.id}
-							checked={todo.isDone}
-							onChange={checkboxHandler}
-							onClick={(e) => {
-								dispatch(
-									toggleCheckbox({ id: e.currentTarget.getAttribute('id') })
-								);
-							}}
-						/>
-						<span
-							className={`checkmark ${todo.isDone ? 'checked' : ''}`}
-						></span>
-						<label
-							htmlFor={todo.id}
-							className={`${todo.isDone ? 'strike-through' : ''}`}
-						>
-							{todo.title}
-						</label>
-						<img
-							src={iconCross}
-							alt="cross-icon"
-							onClick={(e) =>
-								dispatch(
-									remove({ id: e.currentTarget.parentElement.dataset.todoId })
-								)
-							}
-						/>
-					</div>
-				))}
+				<DragDropContext onDragEnd={onDragEndHandler}>
+					<Droppable droppableId="todos">
+						{(provided) => (
+							<div
+								className="drag-n-drop-area"
+								ref={provided.innerRef}
+								{...provided.droppableProps}
+							>
+								{allTodos.map((todo, index) => (
+									<Draggable key={todo.id} draggableId={todo.id} index={index}>
+										{(provided) => (
+											<div
+												key={todo.id}
+												data-todo-id={todo.id}
+												ref={provided.innerRef}
+												{...provided.draggableProps}
+												{...provided.dragHandleProps}
+												onMouseOver={(e) =>
+													e.currentTarget.children[3].classList.add('show')
+												}
+												onMouseLeave={(e) =>
+													e.currentTarget.children[3].classList.remove('show')
+												}
+												onTouchStart={(e) =>
+													e.currentTarget.children[3].classList.toggle('show')
+												}
+												onTouchCancel={(e) =>
+													e.currentTarget.children[3].classList.remove('show')
+												}
+											>
+												<input
+													type="checkbox"
+													name="todo-check"
+													id={todo.id}
+													checked={todo.isDone}
+													onChange={checkboxHandler}
+													onClick={(e) => {
+														dispatch(
+															toggleCheckbox({
+																id: e.currentTarget.getAttribute('id'),
+															})
+														);
+													}}
+												/>
+												<span
+													className={`checkmark ${
+														todo.isDone ? 'checked' : ''
+													}`}
+												></span>
+												<label
+													htmlFor={todo.id}
+													className={`${todo.isDone ? 'strike-through' : ''}`}
+												>
+													{todo.title}
+												</label>
+												<img
+													src={iconCross}
+													alt="cross-icon"
+													onClick={(e) =>
+														dispatch(
+															remove({
+																id: e.currentTarget.parentElement.dataset
+																	.todoId,
+															})
+														)
+													}
+												/>
+											</div>
+										)}
+									</Draggable>
+								))}
+								{provided.placeholder}
+							</div>
+						)}
+					</Droppable>
+				</DragDropContext>
 				{isDesktop ? (
 					<div className="todos-footer">
 						<p className="number-of-todos">
