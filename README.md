@@ -1,44 +1,60 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
+# React Todo App
+This is a todo application built with React, Redux, and SCSS.<br/>
 
-## Available Scripts
+This application is one of the challenges on [Frontend Mentor](https://www.frontendmentor.io/) which provides the users with the overview of the application and its design.<br/>
+[Here](https://www.frontendmentor.io/challenges/todo-app-Su1_KokOW) is the challenge for this project.
 
-In the project directory, you can run:
+### Design
+Here are provided snapshots by Frontend Mentor.  Based on these snapshots, I implemented these designs.
+<figure>
+  <figcaption style="text-align:center">- Desktop design light version</figcaption>
+  <img src="https://user-images.githubusercontent.com/51708229/132077335-f4993fd4-ca68-4e28-9b1e-0815b03ec240.jpg" alt="desktop-design-light" style="width:100%">
+</figure>
 
-### `yarn start`
+<figure>
+  <figcaption style="text-align:center">- Desktop design dark version</figcaption>
+  <img src="https://user-images.githubusercontent.com/51708229/132077339-e623cfd8-972f-4afb-8a88-f0368e314061.jpg" alt="desktop-design-dark" style="width:100%">
+</figure>
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+<p>- Mobile design light & dark version</p>
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+![mobile-design-light](https://user-images.githubusercontent.com/51708229/132077340-519c6449-4020-491b-a08e-fadf86be818e.jpg)
+![mobile-design-dark](https://user-images.githubusercontent.com/51708229/132077344-fb422265-8c42-4786-9800-52fbfc6f3365.jpg)
 
-### `yarn test`
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+<figure>
+  <figcaption style="text-align:center">- Active state</figcaption>
+  <img src="https://user-images.githubusercontent.com/51708229/132077570-e8f0bece-5b14-47b5-b9f8-a375a1069fd8.jpg" alt="active-states-light" style="width:100%">
+</figure>
 
-### `yarn build`
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Project Status
+This application is done with functioning part.<br/>
+However, it has a issue which is it gets a screen flicker when re-ordering todo items.<br/>
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Project Result
+![スクリーンショット 2021-09-03 20 13 46](https://user-images.githubusercontent.com/51708229/132080636-5b78013d-8f86-4bc6-91ee-d1009c3feceb.png)
+![スクリーンショット 2021-09-03 20 14 02](https://user-images.githubusercontent.com/51708229/132080638-e6718365-b38b-442b-8d95-3cf0948800f3.png)
+![スクリーンショット 2021-09-03 20 11 17](https://user-images.githubusercontent.com/51708229/132080591-177f7030-3a66-4b75-8dad-515d46983cd4.png) ![スクリーンショット 2021-09-03 20 10 20](https://user-images.githubusercontent.com/51708229/132080592-ee4d3751-50aa-450e-ae4a-1aadba61ec75.png)
 
-### `yarn eject`
+### Demo
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Installation and Setup Instructions
+Clone down `main` repository. You will need `npm` and `node` installed grobally on your local machine.
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Installation:
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+`npm install`
 
-## Learn More
+To start a server:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+`npm start`
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+To visit the app:
+
+`localhost:3000`
+
+
+## Reflection
