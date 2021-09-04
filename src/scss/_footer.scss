@@ -1,0 +1,14 @@
+footer {
+	text-align: center;
+	margin: 3rem auto 0;
+	color: $dark-grayish-blue;
+
+	a {
+		color: inherit;
+		font-weight: bold;
+
+		&:hover {
+			color: $bright-blue;
+		}
+	}
+}
