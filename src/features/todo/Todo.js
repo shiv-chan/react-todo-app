@@ -38,7 +38,7 @@ export default function Todo() {
 
 	// add a new todo when hitting the enter key
 	const addTodoHandler = (e) => {
-		if (e.code === 'Enter') {
+		if (e.key === 'Enter') {
 			dispatch(add(todoTitle));
 			setTodoTitle('');
 		}
