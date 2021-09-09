@@ -78,6 +78,10 @@ I’m still not sure this is the right way to sort items because I don't feel th
 
 3. I’d never tried to implement a drag and drop feature before this. I needed to do some research about this.  First I tried to implement this with only hooks but it was a little complicated and hard for me to understand how it works.  Due to this short timeframe I decided to rely on `react-beautiful-dnd`.  I still need time to master how to use this, but at least I could manage to implement a drag and drop feature.
 
+4. When hovoring over or touching each todo items, the cross icon appears on the left end.<br/>
+First, I created the state that tells a todo item is hovered or not and set the condition to detect it should be shown or not with a ternary operator in cross icons. However, with that solution every cross icons appear and disappear at the same time once one of todo items gets hovered or touched.<br/>
+Therefore, I set the following `e.currentTarget.children[3]` in each todo items `div` to target cross icon which is the third child of each item. Then, add `classList` `add()`, `remove()`, `toggle()` methods to manipulate the styling with a class name. 
+
 There are some rooms to improve on this project’s code.<br/>
 As I mentioned in the “Project Status” section, there is still a problem about a screen flicker when dropping a todo item.<br/>
 Also, `Todo.js` has quite a large amount of lines of code so I should abstract some parts and make the code more readable and minimize re-renders.
