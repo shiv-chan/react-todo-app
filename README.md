@@ -39,6 +39,10 @@ However, it has a issue which is it gets a screen flicker when re-ordering todo 
 ![スクリーンショット 2021-09-03 20 11 17](https://user-images.githubusercontent.com/51708229/132080591-177f7030-3a66-4b75-8dad-515d46983cd4.png) ![スクリーンショット 2021-09-03 20 10 20](https://user-images.githubusercontent.com/51708229/132080592-ee4d3751-50aa-450e-ae4a-1aadba61ec75.png)
 
 ### Demo
+![react-todo-app-demo-min](https://user-images.githubusercontent.com/51708229/132109586-59830aee-a089-4867-a578-c36448afe233.gif)
+
+### Production Site
+https://react-todo-app-snowy.vercel.app/
 
 
 ## Installation and Setup Instructions
@@ -58,3 +62,27 @@ To visit the app:
 
 
 ## Reflection
+
+I set a week timeframe for this personal project.  This was a challenge for myself to be able to command `redux` from scratch.<br/>
+Before I started to work on this, I had been in a “tutorial hell”.  To get out of the hell, I decided to build this application without referring to any other source codes or a tutorial video. (I believe there are some tutorial videos about this particular challenge since Frontend Mentor is getting popular!)
+
+I started this process by putting the following command  `npx create-react app react-todo-app --template redux`, which is creating a redux + plain JS boilerplate. Also, I installed `sass` and `node-sass` to utilize SASS for styling.
+
+Since I’m still learning and in the process of getting used to `redux`, figuring out which one should be a global state was very tough overall.<br/>
+There are main challenges I had on this project.<br/>
+
+1. For sorting all todos with buttons, it seems like I need to have a local state that can store all todos to be shown each time. This causes a lot of re-renders.
+I’m still not sure this is the right way to sort items because I don't feel that I take advantage of having a global state.  (I need to try different ways.)
+
+2. The sorting buttons’ layout looks quite different in between a mobile and a desktop version.  One has an independent section and the other sits inside of the last `div` of the list.  I realized that I can’t control this with CSS, so with `react-responsive` I could control which element should be rendered based on the screen size.
+
+3. I’d never tried to implement a drag and drop feature before this. I needed to do some research about this.  First I tried to implement this with only hooks but it was a little complicated and hard for me to understand how it works.  Due to this short timeframe I decided to rely on `react-beautiful-dnd`.  I still need time to master how to use this, but at least I could manage to implement a drag and drop feature.
+
+4. When hovoring over or touching each todo items, the cross icon appears on the left end.<br/>
+First, I created the state that tells a todo item is hovered or not and set the condition to detect it should be shown or not with a ternary operator in cross icons. However, with that solution every cross icons appear and disappear at the same time once one of todo items gets hovered or touched.<br/>
+Therefore, I set the following `e.currentTarget.children[3]` in each todo items `div` to target cross icon which is the third child of each item. Then, add `classList` `add()`, `remove()`, `toggle()` methods to manipulate the styling with a class name. 
+
+There are some rooms to improve on this project’s code.<br/>
+As I mentioned in the “Project Status” section, there is still a problem about a screen flicker when dropping a todo item.<br/>
+Also, `Todo.js` has quite a large amount of lines of code so I should abstract some parts and make the code more readable and minimize re-renders.
+
